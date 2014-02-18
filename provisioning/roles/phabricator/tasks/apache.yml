@@ -1,0 +1,7 @@
+- name: install apache config
+  template: src="../templates/webserver/apache.conf.j2" dest="/etc/apache2/sites-available/phabricator.conf" owner=root group=root mode=644
+
+- name: enable site apache config
+  command: a2ensite phabricator.conf
+  notify:
+    - restart apache

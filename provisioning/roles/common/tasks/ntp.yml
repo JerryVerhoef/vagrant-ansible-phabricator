@@ -1,0 +1,3 @@
+---
+- name: install NTP
+  apt: pkg=ntp

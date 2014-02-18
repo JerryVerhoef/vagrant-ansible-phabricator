@@ -1,0 +1,6 @@
+---
+- include: apt.yml
+- include: ntp.yml
+- include: locale.yml
+- include: sshd.yml
+- include: git.yml

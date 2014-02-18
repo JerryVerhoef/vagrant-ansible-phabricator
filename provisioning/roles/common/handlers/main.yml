@@ -1,0 +1,6 @@
+---
+- name: regenerate host keys
+  shell: rm /etc/ssh/ssh_host_* && dpkg-reconfigure openssh-server
+  notify: restart sshd
+- name: restart sshd
+  service: name=ssh state=restarted

@@ -1,0 +1,12 @@
+- name: create directory for sources
+  sudo: yes
+  file: dest={{ phabricator_source_directory | basename }} state=directory
+
+- name: Get fabricatory
+  git: repo={{ phabricator_git_repo }} dest={{ phabricator_source_directory }}
+
+- name: Get arcanist
+  git: repo={{ arcanist_git_repo }} dest={{ arcanist_source_directory }}
+
+- name: Get libphutil
+  git: repo={{ libphutil_git_repo }} dest={{ libphutil_source_directory }}

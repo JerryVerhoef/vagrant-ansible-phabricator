@@ -1,0 +1,18 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: install the Python Keyczar module so we can use Ansible accelerated mode
+      apt: pkg=python-keyczar
+    - debug: var=ansible_fqdn
+    - name: Add hostname to hosts file if needed
+      lineinfile: "dest=/etc/hosts regexp='^127.0.0.1' line='127.0.0.1 localhost'"
+- hosts: all
+  sudo: yes
+  accelerate: yes
+  vars_files:
+    - vars/setting.yml
+  roles:
+    - mysql
+    - webserver
+    - phabricator

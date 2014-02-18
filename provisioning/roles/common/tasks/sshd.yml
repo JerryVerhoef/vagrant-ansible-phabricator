@@ -1,0 +1,47 @@
+---
+- name: only allow SSH protocol 2
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^Protocol ' line='Protocol 2'
+  notify: restart sshd
+- name: do not permit empty passwords
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitEmptyPasswords ' line='PermitEmptyPasswords no'
+  notify: restart sshd
+- name: make sure the current user can login to the remote system before we disable password authentication
+  authorized_key: user={{ ansible_ssh_user }} key="{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+- name: disable password authentication, forcing use of keys for login
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^#?PasswordAuthentication ' line='PasswordAuthentication no'
+  notify: restart sshd
+- name: do not permit login as root
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin ' line='PermitRootLogin no'
+  notify: restart sshd
+- name: do not use authorized keys which are writable by other users
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^StrictModes ' line='StrictModes yes'
+  notify: restart sshd
+- name: only use a RSA host key
+  lineinfile: dest=/etc/ssh/sshd_config line='HostKey /etc/ssh/ssh_host_{{ item.type }}_key' state={{ item.state }}
+  with_items:
+    - { type: 'rsa', state: 'present' }
+    - { type: 'dsa', state: 'absent' }
+    - { type: 'ecdsa', state: 'absent' }
+  notify: restart sshd
+- name: use 4k bits for the ephemeral server key
+  lineinfile: dest=/etc/ssh/sshd_config regexp='^ServerKeyBits ' line='ServerKeyBits 4096'
+  notify: regenerate host keys
+- name: specify allowed ciphers
+  # TODO: with OpenSSH >=6.1 we should add aes256-gcm@openssh.com and
+  # aes128-gcm@openssh.com
+  lineinfile: dest=/etc/ssh/sshd_config line='Ciphers aes256-ctr,aes192-ctr,aes128-ctr'
+  notify: restart sshd
+- name: specify allowed cryptographics hash functions
+  # TODO: with OpenSSH >=6.1 we should add the RFC 4418
+  # umac-128-etm@openssh.com algorithm
+  lineinfile: dest=/etc/ssh/sshd_config line='MACs hmac-sha2-512,hmac-sha2-256,hmac-ripemd160'
+  notify: restart sshd
+- name: specify allowed key exchange algorithms
+  # TODO: when using OpenSSH >6.3p1 we should add the
+  # curve25519-sha256@libssh.org key algorithm which does not rely on
+  # NIST-based curves
+  lineinfile: dest=/etc/ssh/sshd_config line='KexAlgorithms diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1'
+  notify: restart sshd
+- name: speed up ssh by disabling server-side reverse DNS lookups
+  lineinfile: dest=/etc/ssh/sshd_config line='UseDNS no'
+  notify: restart sshd

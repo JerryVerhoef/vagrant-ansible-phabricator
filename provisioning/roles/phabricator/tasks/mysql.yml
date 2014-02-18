@@ -1,0 +1,6 @@
+- name: add MySQL users
+  mysql_user: name={{ item.user }} password={{ item.password }} priv="{{ item.priv }}"
+  with_items: mysql_users
+- name: create the Drupal databases
+  mysql_db: name={{ item.database }}
+  with_items: mysql_users

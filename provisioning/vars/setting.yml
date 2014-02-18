@@ -1,0 +1,22 @@
+server_url: "phabricator.vnu.dev"
+
+phabricator_source_directory: "/data/phabricator"
+phabricator_git_repo: "git://github.com/facebook/phabricator.git"
+
+arcanist_source_directory: "/data/arcanist"
+arcanist_git_repo: "git://github.com/facebook/arcanist.git"
+
+libphutil_source_directory: "/data/libphutil"
+libphutil_git_repo: "git://github.com/facebook/libphutil.git"
+
+storage_path: "/data/filestorage"
+
+mysql_users:
+  - user: 'phb_user'
+    password: '9ufsdklh-2'
+    database: phabricator
+    priv: '*.*:ALL'
+
+phabricator:
+  - name: "storage.local-disk.path"
+    value: storage_path

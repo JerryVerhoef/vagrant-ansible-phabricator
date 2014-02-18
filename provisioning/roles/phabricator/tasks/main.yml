@@ -1,0 +1,4 @@
+- include: getsource.yml
+- include: apache.yml
+- include: mysql.yml
+- include: configure.yml

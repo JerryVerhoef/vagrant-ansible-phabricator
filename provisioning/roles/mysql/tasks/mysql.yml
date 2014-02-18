@@ -1,0 +1,4 @@
+- name: Install MySQL
+  apt: pkg=mysql-server state=present
+- name: install the Python MySQLdb package so we can use the ansible mysql_user module
+  apt: pkg=python-mysqldb state=present

@@ -1,0 +1,5 @@
+- name: init storage
+  command: "{{ phabricator_source_directory }}/bin/storage upgrade --user {{ mysql_users.0.user }} --password {{ mysql_users.0.password }} --force"
+- name: configure phabricator
+  command: "{{ phabricator_source_directory }}/bin/config set {{ item.name }} {{ item.value }} "
+  with_items: phabricator
