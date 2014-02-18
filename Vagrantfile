@@ -38,8 +38,9 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "provisioning/phabricator.yml"
       ansible.inventory_path = "provisioning/hosts_vagrant"
       ansible.sudo = true
+      ansible.host_key_checking = false
       # debug is on
-      ansible.verbose = "vvvv"
+      # ansible.verbose = "vvvv"
     end
 
 

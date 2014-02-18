@@ -10,6 +10,7 @@ libphutil_source_directory: "/data/libphutil"
 libphutil_git_repo: "git://github.com/facebook/libphutil.git"
 
 storage_path: "/data/filestorage"
+repo_path: "/data/repo"
 
 mysql_users:
   - user: 'phb_user'
@@ -19,4 +20,14 @@ mysql_users:
 
 phabricator:
   - name: "storage.local-disk.path"
-    value: storage_path
+    value: "{{ storage_path }}"
+  - name: "phabricator.base-uri"
+    value: "http://{{ server_url }}/"
+  - name: "storage.upload-size-limit"
+    value: "10Mb"
+  - name: "phabricator.timezone"
+    value: "Europe/Amsterdam"
+  - name: "repository.default-local-path"
+    value: "{{ repo_path }}"
+  - name: "metamta.mail-adapter"
+    value: "PhabricatorMailImplementationTestAdapter"

@@ -1,5 +1,14 @@
 - name: init storage
   command: "{{ phabricator_source_directory }}/bin/storage upgrade --user {{ mysql_users.0.user }} --password {{ mysql_users.0.password }} --force"
+
+- name: init filestorage
+  file: dest={{ storage_path }} owner=www-data group=www-data mode=775 state=directory
+
+- name: init repo path
+  file: dest={{ repo_path }} owner=www-data group=www-data mode=775 state=directory
+  
 - name: configure phabricator
   command: "{{ phabricator_source_directory }}/bin/config set {{ item.name }} {{ item.value }} "
   with_items: phabricator
+  notify:
+    - Start phabricator daemon

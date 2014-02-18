@@ -2,3 +2,4 @@
 - include: apache.yml
 - include: mysql.yml
 - include: configure.yml
+- include: daemon.yml
