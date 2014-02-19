@@ -1,2 +1,0 @@
-- name: Start daemons
-  command: "{{ phabricator_source_directory }}/bin/phd start"

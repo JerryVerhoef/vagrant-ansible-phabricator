@@ -1,4 +1,4 @@
-server_url: "phabricator.vnu.dev"
+server_url: "{{ fq_domain_name }}"
 
 phabricator_source_directory: "/data/phabricator"
 phabricator_git_repo: "git://github.com/facebook/phabricator.git"

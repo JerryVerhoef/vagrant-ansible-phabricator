@@ -13,6 +13,4 @@
   vars_files:
     - vars/setting.yml
   roles:
-    - mysql
-    - webserver
     - phabricator
