@@ -1,13 +1,13 @@
 server_url: "{{ fq_domain_name }}"
 
 phabricator_source_directory: "/data/phabricator"
-phabricator_git_repo: "git://github.com/facebook/phabricator.git"
+phabricator_git_repo: "https://github.com/facebook/phabricator.git"
 
 arcanist_source_directory: "/data/arcanist"
-arcanist_git_repo: "git://github.com/facebook/arcanist.git"
+arcanist_git_repo: "https://github.com/facebook/arcanist.git"
 
 libphutil_source_directory: "/data/libphutil"
-libphutil_git_repo: "git://github.com/facebook/libphutil.git"
+libphutil_git_repo: "https://github.com/facebook/libphutil.git"
 
 storage_path: "/data/filestorage"
 repo_path: "/data/repo"
