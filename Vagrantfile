@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
     if Vagrant.has_plugin?("vagrant-cachier")
       config.cache.auto_detect = true
     end
-
+    config.vm.synced_folder "../PhabricatorDevelopment", "/data/phabricator"
 
     config.vm.provision :ansible do |ansible|
       ansible.playbook = "provisioning/phabricator.yml"

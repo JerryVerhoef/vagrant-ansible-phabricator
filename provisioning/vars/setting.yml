@@ -1,7 +1,7 @@
 server_url: "{{ fq_domain_name }}"
 
 phabricator_source_directory: "/data/phabricator"
-phabricator_git_repo: "https://github.com/facebook/phabricator.git"
+phabricator_git_repo: "https://github.com/JerryVerhoef/phabricator.git"
 
 arcanist_source_directory: "/data/arcanist"
 arcanist_git_repo: "https://github.com/facebook/arcanist.git"
